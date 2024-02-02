@@ -4,6 +4,9 @@ import { cwdMessage } from './cwdMessage.js';
 import { capitalizeFirstLetter } from './capitaliseFirstLetter.js';
 import { invalidInputMessage } from './invalidInputMessage.js';
 import { CONSOLE_COLORS } from './consoleColors.js';
+import { up } from '../nwd/up.js';
+import { cd } from '../nwd/cd.js';
+import { ls } from '../nwd/ls.js';
 
 export const listenForCommands = (username, userHomedir) => {
   let cwd = userHomedir;
@@ -16,7 +19,6 @@ export const listenForCommands = (username, userHomedir) => {
   rl.on('line', async (line) => {
     try {
       const [command, ...args] = line.trim().split(' ');
-      console.log('command', command);
       switch (command) {
         case 'exit':
         case '.exit':
@@ -33,6 +35,22 @@ export const listenForCommands = (username, userHomedir) => {
           help();
           break;
         }
+        case 'up': {
+          cwd = up(cwd);
+          break;
+        }
+        case 'cd': {
+          if (args.length > 0) {
+            cwd = await cd(cwd, args);
+          } else {
+            invalidInputMessage();
+          }
+          break;
+        }
+        case 'ls': {
+          await ls();
+          break;
+        }
         default: {
           invalidInputMessage(
             'Invalid input! Type "help" to see available commands.'
@@ -42,9 +60,9 @@ export const listenForCommands = (username, userHomedir) => {
       }
     } catch (error) {
       console.log(error);
-      // invalidInputMessage(
-      //   'Invalid input! Type "help" to see available commands.'
-      // );
+      invalidInputMessage(
+        'Invalid input! Type "help" to see available commands.'
+      );
     } finally {
       cwdMessage();
     }

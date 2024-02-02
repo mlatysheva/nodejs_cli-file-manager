@@ -8,6 +8,9 @@ import { CONSOLE_COLORS } from './utils/consoleColors.js';
 
 const userArgs = parseUserArgs();
 if (userArgs.username) {
+  if (userArgs.username === 'your_username') {
+    userArgs.username = 'Beautiful Stranger';
+  }
   console.log(
     CONSOLE_COLORS.green,
     `Welcome to the File Manager, ${capitalizeFirstLetter(userArgs.username)}!`
@@ -24,5 +27,5 @@ if (userArgs.username) {
 const userHomedir = homedir();
 process.chdir(userHomedir);
 cwdMessage();
-console.log(`Enter a command or type "help" to see available commands.`);
+console.log(CONSOLE_COLORS.yellow, `Enter a command or type "help" to see available commands.`);
 listenForCommands(userArgs.username, userHomedir);
