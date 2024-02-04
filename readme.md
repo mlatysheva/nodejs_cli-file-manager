@@ -30,16 +30,16 @@ npm run start -- --username=your_username
 - After the program work finished (`ctrl + c` pressed or the user sent the `.exit` command to the console), the program displays the following text in the console:  
 `Thank you for using File Manager, Username, good-bye!`  
 
-![Welcome screen](screenshots/welcome_screen.png)
 - At the start of the program and after each end of input/operation the current working directory is printed in following way:  
 `You are currently in path_to_working_directory`  
 - The starting working directory is the current user's home directory (for example, on Windows it's something like `system_drive/Users/Username`)
 - By default, the program prompts the user in the console to print commands and wait for results 
 - By typing `help` the user can see the list of available commands
-![Help](screenshots/help.png)
 - In case of an unknown operation or invalid input (missing mandatory arguments, wrong data in the arguments, etc.), the `Invalid input` message is shown and the user is able to enter another command
 - In case of an error during execution of an operation, the `Operation failed` message is shown and the user is able to enter another command (e.g. an attempt to perform an operation on a non-existent file or work on a non-existent path results in the operation fail)
 - The user cannot go upper than the root directory (e.g. on Windows it's the current local drive root). If the user tries to do so, the current working directory does not change  
+
+![Welcome screen and help](screenshots/greeting_help.png)
 
 The list of operations and their syntax:
 - Navigation & working directory (nwd)
@@ -47,6 +47,8 @@ The list of operations and their syntax:
     ```bash
     up
     ```
+    ![Up command to the root](screenshots/up_root.png)
+
     - Go to a dedicated folder from the current directory (`path_to_directory` can be relative or absolute)
     ```bash
     cd path_to_directory
@@ -58,7 +60,7 @@ The list of operations and their syntax:
     ```bash
     ls
     ```
-    ![Content of a directory](screenshots/directory_content.png)
+    ![Content of a directory](screenshots/ls.png)
 - Basic operations with files
     - Read a file and print its content into the console (is implemented with the Readable stream): 
     ```bash
@@ -111,6 +113,7 @@ The list of operations and their syntax:
     ```bash
     os --architecture
     ```
+    ![os commands](screenshots/os.png)
 - Hash calculation  
     - Calculate the hash for a file and print it into the console  
     ```bash
@@ -123,11 +126,10 @@ The list of operations and their syntax:
     ```bash
     compress path_to_file path_to_destination
     ```
-    ![Compress a file](screenshots/compress.png)
     - Decompress a file (the Brotli algorithm and Streams API are used)  
     ```bash
     decompress path_to_file path_to_destination
     ```  
-    ![Decompress a file](screenshots/decompress.png)
-
 - If `path_to_destination` is not indicated, the corresponding operation (`cp`, `compress` or `decompress` a file) is performed in the same directory as the original file. If copying is taking place, the string `_copy` is added to the filename before its extension.
+
+![Compress and decompress files](screenshots/compress_decompress.png)
