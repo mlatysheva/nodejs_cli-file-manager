@@ -8,18 +8,13 @@ import { CONSOLE_COLORS } from './utils/consoleColors.js';
 
 const userArgs = parseUserArgs();
 if (userArgs.username) {
-  if (userArgs.username === 'your_username') {
-    userArgs.username = 'Beautiful Stranger';
-  }
   console.log(
-    CONSOLE_COLORS.green,
+    CONSOLE_COLORS.cyan,
     `Welcome to the File Manager, ${capitalizeFirstLetter(userArgs.username)}!`
   );
 } else {
-  // process.stdout.write(userArgs.error);
-  // process.exit(1);
   console.log(
-    CONSOLE_COLORS.yellow,
+    CONSOLE_COLORS.cyan,
     `Welcome to the File Manager, Beautiful Stranger!\nYou haven't specified your username, so we'll call you that.`
   );
 }

@@ -13,6 +13,11 @@ import { rn } from '../fs/rn.js';
 import { cp } from '../fs/cp.js';
 import { mv } from '../fs/mv.js';
 import { remove } from '../fs/rm.js';
+import { osOptions } from '../os/osOptions.js';
+import { hash } from '../hash/hash.js';
+import { compress } from '../compress/compress.js';
+import { decompress } from '../compress/decompress.js';
+
 
 export const listenForCommands = (username, userHomedir) => {
   let cwd = userHomedir;
@@ -33,7 +38,7 @@ export const listenForCommands = (username, userHomedir) => {
             CONSOLE_COLORS.cyan,
             `Thank you for using the File Manager, ${capitalizeFirstLetter(
               username
-            )}!`
+            )}, good-bye!`
           );
           process.exit();
         }
@@ -112,6 +117,52 @@ export const listenForCommands = (username, userHomedir) => {
           if (args.length === 1) {
             const pathToFile = args[0];
             await remove(pathToFile);
+          } else {
+            invalidInputMessage();
+          }
+          break;
+        }
+        case 'os': {
+          if (args.length > 0 && args[0].startsWith('--')) {
+            const arg = args[0].slice(2);
+            osOptions(arg);
+          } else {
+            invalidInputMessage(
+              'Invalid input! Specify a valid command after "os". Type "help" to see available commands.'
+            );
+          }
+          break;
+        }
+        case 'hash': {
+          if (args.length > 0) {
+            const pathToFile = args.join(' ');
+            await hash(pathToFile);
+          } else {
+            invalidInputMessage();
+          }
+          break;
+        }
+        case 'compress': {
+          if (args.length === 2) {
+            const fileToCompress = args[0].toString();
+            const newDestination = args[1].toString();
+            await compress(fileToCompress, newDestination);
+          } else if (args.length === 1) {
+            const fileToCompress = args[0].toString();
+            await compress(fileToCompress, fileToCompress);
+          } else {
+            invalidInputMessage();
+          }
+          break;
+        }
+        case 'decompress': {
+          if (args.length === 2) {
+            const fileToDecompress = args[0].toString();
+            const newDestination = args[1].toString();
+            await decompress(fileToDecompress, newDestination);
+          } else if (args.length === 1) {
+            const fileToDecompress = args[0].toString();
+            await decompress(fileToDecompress, fileToDecompress);
           } else {
             invalidInputMessage();
           }
