@@ -7,6 +7,12 @@ import { CONSOLE_COLORS } from './consoleColors.js';
 import { up } from '../nwd/up.js';
 import { cd } from '../nwd/cd.js';
 import { ls } from '../nwd/ls.js';
+import { cat } from '../fs/cat.js';
+import { add } from '../fs/add.js';
+import { rn } from '../fs/rn.js';
+import { cp } from '../fs/cp.js';
+import { mv } from '../fs/mv.js';
+import { remove } from '../fs/rm.js';
 
 export const listenForCommands = (username, userHomedir) => {
   let cwd = userHomedir;
@@ -49,6 +55,66 @@ export const listenForCommands = (username, userHomedir) => {
         }
         case 'ls': {
           await ls();
+          break;
+        }
+        case 'cat': {
+          if (args.length > 0) {
+            const pathToFile = args.join(' ').toString();
+            await cat(pathToFile);
+          } else {
+            invalidInputMessage();
+          }
+          break;
+        }
+        case 'add': {
+          if (args.length > 0) {
+            const pathToFile = args.join(' ').toString();
+            await add(pathToFile);
+          } else {
+            invalidInputMessage();
+          }
+          break;
+        }
+        case 'rn': {
+          if (args.length === 2) {
+            const fileToRename = args[0].toString();
+            const newName = args[1].toString();
+            await rn(fileToRename, newName);
+          } else {
+            invalidInputMessage();
+          }
+          break;
+        }
+        case 'cp': {
+          if (args.length === 2) {
+            const fileToCopy = args[0].toString();
+            const newDestination = args[1].toString();
+            await cp(fileToCopy, newDestination);
+          } else if (args.length === 1) {
+            const fileToCopy = args[0].toString();
+            await cp(fileToCopy, fileToCopy);
+          } else {
+            invalidInputMessage();
+          }
+          break;
+        }
+        case 'mv': {
+          if (args.length === 2) {
+            const fileToMove = args[0].toString();
+            const newDestination = args[1].toString();
+            await mv(fileToMove, newDestination);
+          } else {
+            invalidInputMessage();
+          }
+          break;
+        }
+        case 'rm': {
+          if (args.length === 1) {
+            const pathToFile = args[0];
+            await remove(pathToFile);
+          } else {
+            invalidInputMessage();
+          }
           break;
         }
         default: {

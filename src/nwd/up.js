@@ -1,13 +1,14 @@
-import os from 'os';
+import { EOL } from 'os';
 import path from 'path';
 import { CONSOLE_COLORS } from '../utils/consoleColors.js';
 
 export const up = (cwd) => {
-  if (cwd === os.homedir()) {
+  const root = path.resolve('/');
+  if (cwd === root) {
     console.log(
       CONSOLE_COLORS.yellow,
-      `You are already in your root directory: ${os.homedir()}${
-        os.EOL
+      `You are already in the root directory: ${root}${
+        EOL
       }Enter command or type "help":`
     );
     return cwd;
