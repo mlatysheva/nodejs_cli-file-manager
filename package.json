@@ -1,12 +1,18 @@
 {
   "name": "nodejs_cli-file-manager",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "CLI app to work with the file system",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "start:username": "node src/index.js --username='Beautiful Stranger'"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlatysheva/nodejs_cli-file-manager.git"
+  },
+  "author": "Maria Latysheva",
+  "license": "ISC",
+  "homepage": "https://github.com/mlatysheva/nodejs_cli-file-manager#readme"
 }
